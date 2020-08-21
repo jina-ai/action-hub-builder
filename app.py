@@ -10,7 +10,7 @@ from jina.main.parser import set_hub_base_parser, set_hub_build_parser
 
 def get_parser():
     parser = set_hub_base_parser()
-    parser.add_argument('--target', type=str,
+    parser.add_argument('target', type=str,
                         help='the directory path of target Pod image, where manifest.yml and Dockerfile located')
     parser.add_argument('--fail-fast', action='store_true', default=False,
                         help='when set to true, cancels all build jobs if any one fails.')

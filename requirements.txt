@@ -1,2 +1,1 @@
-jina
-docker
+jina[docker]
