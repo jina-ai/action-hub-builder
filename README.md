@@ -23,7 +23,7 @@ python app.py /abc
 python app.py /abc --dry-run
 ```
 
-Note that this only checks the name conventions, required files. No actual testing and building. 
+Note that `dry-run` only checks the name conventions, required files. No actual testing and building. 
 
 ### View the Build Log of a Run
 
