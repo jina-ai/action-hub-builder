@@ -19,7 +19,7 @@ runs:
     - name: list files
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        FILES=$(curl -s -X GET -G $URL | jq -c '.[] | select( .filename | endswith("manifest.yml"))')
+        FILES=$(curl -s -X GET -G $URL | jq -c '.[]')
         if [ -z "$FILES" ]
         then
               echo "nothing to build"
