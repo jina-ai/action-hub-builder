@@ -19,12 +19,13 @@ runs:
     - name: list files
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        { # try
-            FILES=$(curl -s -X GET -G $URL | jq -r '.[] | select( .filename | endswith("manifest.yml"))') &&
-            echo "These files are changed: $FILES"
-        } || { # catch
-            echo "no file changed!"
-        }
+        FILES=$(curl -s -X GET -G $URL | jq -r '.[] | select( .filename | endswith("manifest.yml"))') &&
+        if [ -z "$FILES" ]
+        then
+              echo "nothing to build"
+        else
+              echo "something to build $FILES"
+        fi
       shell: bash
     - run: echo Hello ${{ inputs.who-to-greet }}.
       shell: bash
