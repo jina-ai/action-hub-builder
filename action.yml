@@ -20,7 +20,7 @@ runs:
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
         { # try
-            FILES=$(curl -s -X GET -G $URL | jq -r '.[]') &&
+            FILES=$(curl -s -X GET -G $URL | jq -r '.[] | select( .filename | endswith("manifest.yml"))') &&
             echo "These files are changed: $FILES"
         } || { # catch
             echo "no file changed!"
