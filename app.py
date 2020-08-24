@@ -74,7 +74,7 @@ def main(args):
 
     failed = [t for t in summary['tasks'] if not t['is_build_success']]
     if failed:
-        default_logger.info(f'{len(failed)}/{len(all_targets)}')
+        default_logger.warning(f'{len(failed)}/{len(all_targets)} failed to build')
         for t in failed:
             default_logger.error(f'{t["path"]}\t{t["exception"]}')
 
