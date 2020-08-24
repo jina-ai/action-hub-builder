@@ -12,14 +12,14 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: install hub-builder
-      run: |
-        pip install jina
-      shell: bash
+#    - name: install hub-builder
+#      run: |
+#        pip install jina
+#      shell: bash
     - name: list files
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
+        FILES=$(curl -s -X GET -G $URL | jq -r '.[]')
         echo $FILES
       shell: bash
     - run: echo Hello ${{ inputs.who-to-greet }}.
