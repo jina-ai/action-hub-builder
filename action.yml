@@ -16,7 +16,7 @@ runs:
 #      run: |
 #        pip install jina
 #      shell: bash
-    - name: list files
+    - name: list all targets
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
         FILES=$(curl -s -X GET -G $URL | jq -c '.[] | select( .filename | endswith("manifest.yml")) | .filename | rtrimstr("manifest.yml")')
@@ -24,7 +24,11 @@ runs:
         then
               echo "nothing to build"
         else
-              echo "something to build $FILES"
+              echo "something to build:"
+              for TAR in $(FILES)
+              do
+              	echo $TAR
+              done
         fi
       shell: bash
     - run: echo Hello ${{ inputs.who-to-greet }}.
