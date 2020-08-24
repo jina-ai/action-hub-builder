@@ -12,6 +12,9 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: install hub-builder
+      run: |
+        pip install jina
     - name: list files
       run: |
         URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
@@ -23,4 +26,6 @@ runs:
     - id: random-number-generator
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
       shell: bash
-
+branding:
+  icon: 'package'
+  color: 'green'
