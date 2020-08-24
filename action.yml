@@ -25,7 +25,7 @@ runs:
               echo "nothing to build"
         else
               echo "something to build:"
-              for TAR in $(FILES)
+              for TAR in $FILES
               do
               	echo $TAR
               done
