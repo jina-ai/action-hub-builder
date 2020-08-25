@@ -2,6 +2,25 @@
 
 `hub-builder` is a simple interface for recursively building & validating [Jina Hub](https://github.com/jina-ai/jina-hub) executors. It is built on top of [`jina hub` interface](https://github.com/jina-ai/jina). It can be used as a Github action in the CICD workflow, or via CLI.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Install](#install)
+- [Jina "Hello, World!" 👋🌍](#jina-hello-world-)
+- [Build your own Project](#build-your-own-project)
+- [Tutorials](#tutorials)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [Community](#community)
+- [Open Governance](#open-governance)
+- [Join Us](#join-us)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
+
 ## Github Action Usage
 
 One can use it as a part of CI pipeline, to build and test images in the Pull Request. Simply copy-paste the following YAML file into `.github/workflows/hub-builder.yml`. 
