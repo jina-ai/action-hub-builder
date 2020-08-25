@@ -2,7 +2,8 @@
 
 set -ex
 
-URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/files"
+pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/files"
 FILES=$(curl -s -X GET -G $URL | jq -c '.[] | select( .filename | endswith("manifest.yml")) | .filename | rtrimstr("manifest.yml")')
 if [ -z "$FILES" ]
 then

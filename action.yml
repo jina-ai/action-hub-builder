@@ -3,8 +3,6 @@ description: 'Build your Pod into Docker image and share with the community'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    PR_NUMBER: ${{ github.event.pull_request.number }}
 branding:
   icon: 'package'
   color: 'green'
