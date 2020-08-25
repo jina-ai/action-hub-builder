@@ -16,7 +16,7 @@ else
       echo "targets to build: $FILES"
       for TAR in $FILES
       do
-        if jina hub build $TAR; then
+        if jina hub build $TAR --pull --prune-images; then
           SUCCESS_TARGETS+=($TAR)
         else
           FAILED_TARGETS+=($TAR)
