@@ -5,37 +5,11 @@ inputs:
     description: 'Who to greet'
     required: true
     default: 'World'
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
 runs:
-  using: "composite"
-  steps:
-#    - name: install hub-builder
-#      run: |
-#        pip install jina
-#      shell: bash
-    - name: list all targets
-      run: |
-        URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-        FILES=$(curl -s -X GET -G $URL | jq -c '.[] | select( .filename | endswith("manifest.yml")) | .filename | rtrimstr("manifest.yml")')
-        if [ -z "$FILES" ]
-        then
-              echo "nothing to build"
-        else
-              echo "something to build:"
-              for TAR in $FILES
-              do
-              	echo $TAR
-              done
-        fi
-      shell: bash
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
 branding:
   icon: 'package'
   color: 'green'
