@@ -5,28 +5,21 @@ import pathlib
 from jina.docker.hubio import HubIO
 from jina.helper import get_now_timestamp, get_full_version
 from jina.logging import default_logger
-from jina.main.parser import set_hub_base_parser, set_hub_build_parser
+from jina.main.parser import set_hub_build_parser
 
 
 def get_parser():
-    parser = set_hub_base_parser()
-    parser.add_argument('target', type=str,
-                        help='the directory path of target Pod image, where manifest.yml and Dockerfile located')
+    parser = set_hub_build_parser()
     parser.add_argument('--fail-fast', action='store_true', default=False,
                         help='when set to true, cancels all build jobs if any one fails.')
     parser.add_argument('--summary', type=str, default=f'build-{get_now_timestamp()}.json',
                         help='path of the build summary')
-    parser.add_argument('--prune-image', action='store_true', default=False,
-                        help='prune image after each build, this often saves disk space')
-    parser.add_argument('--dry-run', action='store_true', default=False,
-                        help='only check path and validility, no real building')
-
     return parser
 
 
 def main(args):
     all_targets = list(
-        set(os.path.abspath(p.parent) for p in pathlib.Path(args.target).absolute().glob('**/manifest.yml')))
+        set(os.path.abspath(p.parent) for p in pathlib.Path(args.path).absolute().glob('**/manifest.yml')))
     all_targets.sort()
     default_logger.info(f'{len(all_targets)} targets to build')
     info, env_info = get_full_version()
@@ -43,20 +36,10 @@ def main(args):
         },
         'tasks': []
     }
-    parser = set_hub_build_parser()
     for t in all_targets:
-        p = parser.parse_args([t, '--pull'])
-        if args.dry_run:
-            try:
-                s = HubIO(p)._check_completeness()
-                s['is_build_success'] = True
-            except Exception as ex:
-                s = {'is_build_success': False,
-                     'exception': str(ex)}
-                default_logger.error(ex)
-        else:
-            s = HubIO(p).build()
-
+        args.path = t
+        args.pull = True
+        s = HubIO(args).build()
         s['path'] = t
         summary['tasks'].append(s)
         if not s['is_build_success']:
@@ -65,9 +48,6 @@ def main(args):
                 break
         else:
             default_logger.success(f'✅ {t} is successfully built!')
-        if args.prune_image:
-            default_logger.info('deleting unused images')
-            client.prune_images()
 
     with open(args.summary, 'w') as fp:
         json.dump(summary, fp)
