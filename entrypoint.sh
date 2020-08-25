@@ -7,6 +7,8 @@ URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/file
 FILES=$(curl -s -X GET -G $URL | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
 
 rc=0
+SUCCESS_TARGETS=()
+FAILED_TARGETS=()
 if [ -z "$FILES" ]
 then
       echo "nothing to build"
@@ -14,7 +16,14 @@ else
       echo "targets to build: $FILES"
       for TAR in $FILES
       do
-        jina hub build $TAR || rc=$?
+        if jina hub build $TAR; then
+          SUCCESS_TARGETS+=($TAR)
+        else
+          FAILED_TARGETS+=($TAR)
+          rc=1
+        fi
       done
 fi
+echo "SUCCESS_TARGETS: $SUCCESS_TARGETS"
+echo "FAILED_TARGETS: $FAILED_TARGETS"
 exit $rc
