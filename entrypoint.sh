@@ -11,7 +11,7 @@ if [ -z "$FILES" ]
 then
       echo "nothing to build"
 else
-      echo "something to build: $FILES"
+      echo "targets to build: $FILES"
       for TAR in $FILES
       do
         jina hub build $TAR || rc=$?

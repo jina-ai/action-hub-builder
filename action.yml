@@ -1,5 +1,6 @@
-name: 'Jina Hub Builder'
-description: 'Build your Pod into Docker image and share with the community'
+name: Jina Hub Image Builder
+description: Build & test your Pod into Docker image and share with the community
+author: Jina AI
 runs:
   using: 'docker'
   image: 'Dockerfile'
