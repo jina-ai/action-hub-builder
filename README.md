@@ -6,17 +6,6 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Install](#install)
-- [Jina "Hello, World!" 👋🌍](#jina-hello-world-)
-- [Build your own Project](#build-your-own-project)
-- [Tutorials](#tutorials)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [Community](#community)
-- [Open Governance](#open-governance)
-- [Join Us](#join-us)
-- [License](#license)
-
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
