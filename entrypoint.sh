@@ -14,12 +14,12 @@ then
       echo "nothing to build"
 else
       echo "targets to build: $FILES"
-      for TAR in $FILES
+      for TAR_PATH in $FILES
       do
-        if jina hub build $TAR --pull --prune-images; then
-          SUCCESS_TARGETS+=("$TAR")
+        if jina hub build $TAR_PATH --pull --prune-images; then
+          SUCCESS_TARGETS+=("$TAR_PATH")
         else
-          FAILED_TARGETS+=("$TAR")
+          FAILED_TARGETS+=("$TAR_PATH")
           rc=1
         fi
       done
