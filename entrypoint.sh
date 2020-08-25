@@ -26,4 +26,6 @@ else
 fi
 echo "SUCCESS_TARGETS: $SUCCESS_TARGETS"
 echo "FAILED_TARGETS: $FAILED_TARGETS"
+echo "::set-output name=success_targets::$SUCCESS_TARGETS"
+echo "::set-output name=failed_targets::$FAILED_TARGETS"
 exit $rc
