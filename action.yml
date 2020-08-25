@@ -1,14 +1,10 @@
 name: 'Jina Hub Builder'
 description: 'Build your Pod into Docker image and share with the community'
-env:
-   PR_NUMBER:
-     description: number of the PR
-     default: ${{ github.event.pull_request.number }}
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.who-to-greet }}
+  env:
+    PR_NUMBER: ${{ github.event.pull_request.number }}
 branding:
   icon: 'package'
   color: 'green'
