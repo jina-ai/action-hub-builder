@@ -1,6 +1,13 @@
 name: Jina Hub Image Builder
 description: Build & test your Pod into Docker image and share with the community
 author: Jina AI
+
+outputs:
+  success_targets:
+    description: Successfully built targets with their paths
+  failed_targets:
+    description: Failed built targets with their paths
+
 runs:
   using: 'docker'
   image: 'Dockerfile'

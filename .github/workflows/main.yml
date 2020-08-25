@@ -7,11 +7,6 @@ name: CI
 on:
   pull_request:
     branches: [ master ]
-outputs:
-  success_targets:
-    description: Successfully built targets
-  failed_targets:
-    description: Failed built targets
 
 jobs:
   test_hubbuilder:
