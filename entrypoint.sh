@@ -17,9 +17,9 @@ else
       for TAR in $FILES
       do
         if jina hub build $TAR --pull --prune-images; then
-          SUCCESS_TARGETS+=($TAR)
+          SUCCESS_TARGETS+=("$TAR")
         else
-          FAILED_TARGETS+=($TAR)
+          FAILED_TARGETS+=("$TAR")
           rc=1
         fi
       done
