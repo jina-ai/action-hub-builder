@@ -47,13 +47,7 @@ def main(args):
     for t in all_targets:
         p = parser.parse_args([t, '--pull'])
         if args.dry_run:
-            try:
-                s = HubIO(p)._check_completeness()
-                s['is_build_success'] = True
-            except Exception as ex:
-                s = {'is_build_success': False,
-                     'exception': str(ex)}
-                default_logger.error(ex)
+            s = HubIO(p).dry_run()
         else:
             s = HubIO(p).build()
 
