@@ -1,6 +1,6 @@
 # hub-builder
 
-`hub-builder` is a simple interface for recursively building & validating [Jina Hub](https://github.com/jina-ai/jina-hub) executors. It is built on top of [`jina hub` interface](https://github.com/jina-ai/jina). It can be used as a Github action in the CICD workflow, or via CLI.
+`hub-builder` is a simple interface for building & validating [Jina Hub](https://github.com/jina-ai/jina-hub) executors. It is built on top of [`jina hub` interface](https://github.com/jina-ai/jina). It can be used as a Github action in the CICD workflow, or via CLI.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -26,10 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Jina Hub Image Builder
-        uses: jina-ai/hub-builder@v0.1
+        uses: jina-ai/hub-builder@v0.2
 ```
 
-On every new PR, the builder will find all changed `manifest.yml` recursively (deleting is excluded) and try to build an Hub image from it. That means, when you update an image, you *must* change `manifest.yml` to trigger the build, e.g. you can simply bump `version` field in `manifest.yml`.
+On every new PR, the builder will find all modified `manifest.yml` recursively (deleting is excluded) and try to build an Hub image from it, one by one. That means, when you update an image, you *must* change `manifest.yml` to trigger the build, e.g. you can simply bump `version` field in `manifest.yml`.
 
 ### Output of the Action
 
