@@ -12,6 +12,6 @@ else
       echo "something to build:"
       for TAR in $FILES
       do
-        echo $TAR
+        jina hub build $TAR
       done
 fi
