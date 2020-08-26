@@ -39,7 +39,6 @@ def main(args):
     for t in all_targets:
         args.path = t
         args.pull = True
-        args.raise_error = True
         s = HubIO(args).build()
         s['path'] = t
         summary['tasks'].append(s)

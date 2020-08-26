@@ -16,7 +16,7 @@ else
       echo "targets to build: $FILES"
       for TAR_PATH in $FILES
       do
-        if jina hub build $TAR_PATH --pull --prune-images; then
+        if jina hub build $TAR_PATH --pull --prune-images --raise-error; then
           SUCCESS_TARGETS+=("$TAR_PATH")
         else
           FAILED_TARGETS+=("$TAR_PATH")
