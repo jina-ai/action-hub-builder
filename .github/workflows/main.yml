@@ -21,6 +21,6 @@ jobs:
       - name: Get the output
         run: |
           rc=0
-          [[ ${{ steps.hubbuild.outputs.success_targets }} == ".github/workflows/tests/ImageReader/" ]] || rc=1
-          [[ ${{ steps.hubbuild.outputs.failed_targets }} == ".github/workflows/tests/EmptyExecutor/" ]] || rc=1
+          [[ "${{ steps.hubbuild.outputs.success_targets }}" == ".github/workflows/tests/ImageReader/" ]] || rc=1
+          [[ "${{ steps.hubbuild.outputs.failed_targets }}" == ".github/workflows/tests/EmptyExecutor/" ]] || rc=1
           exit $rc
