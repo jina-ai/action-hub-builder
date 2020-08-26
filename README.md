@@ -25,7 +25,7 @@ name: Hub Builder
 on: [pull_request]
 
 jobs:
-  hub_builder:
+  hub-builder:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
