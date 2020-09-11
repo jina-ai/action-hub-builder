@@ -7,10 +7,29 @@ outputs:
     description: Successfully built targets with their paths
   failed_targets:
     description: Failed built targets with their paths
-
+inputs:
+  is_ci:
+    description: 'if add --push to jina hub build command'
+    required: true
+    default: 'False'
+  dockerhub_username:
+    description: 'user name of the docker registry'
+    required: false
+  dockerhub_password:
+    description: 'the plaintext password of the docker hub'
+    required: false
+  dockerhub_registry:
+    description: 'the URL to the registry'
+    required: false
+    default: 'https://index.docker.io/v1/'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.is_ci }}
+    - ${{ inputs.dockerhub_username }}
+    - ${{ inputs.dockerhub_password }}
+    - ${{ inputs.dockerhub_registry }}
 branding:
   icon: 'package'
   color: 'green'

@@ -16,6 +16,7 @@ else
       echo "targets to build: $FILES"
       for TAR_PATH in $FILES
       do
+        if [[ "$1" == "True" ]];
         if jina hub build $TAR_PATH --pull --prune-images --test-uses --raise-error --daemon; then
           SUCCESS_TARGETS+=("$TAR_PATH")
         else
