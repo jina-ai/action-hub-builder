@@ -17,6 +17,11 @@ else
       for TAR_PATH in $FILES
       do
         if [[ "$1" == "True" ]];
+           # do ci stuff
+        else
+          # do cd stuff
+        fi
+
         if jina hub build $TAR_PATH --pull --prune-images --test-uses --raise-error --daemon; then
           SUCCESS_TARGETS+=("$TAR_PATH")
         else
