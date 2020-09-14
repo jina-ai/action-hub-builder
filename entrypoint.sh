@@ -31,7 +31,7 @@ if [ -z "$FILES" ]; then
 else
     echo "targets to build: $FILES"
     for TAR_PATH in $FILES; do
-      cmd="jina hub build --pull --prune-images"
+      cmd="jina hub build --pull --prune-images --raise-error"
       if [[ "$IS_PUSH" == true ]]; then
         cmd="$cmd --push $TAR_PATH"
 
@@ -40,7 +40,7 @@ else
         [ ! -z "$DOCKERHUB_PASSWORD" ] && cmd="$cmd --password $DOCKERHUB_PASSWORD"
         [ ! -z "$DOCKERHUB_REGISTRY" ] && cmd="$cmd --registry $DOCKERHUB_REGISTRY"
       else
-        cmd="$cmd --test-uses --raise-error --daemon $TAR_PATH"
+        cmd="$cmd --test-uses --daemon $TAR_PATH"
       fi
 
       if ($cmd); then
