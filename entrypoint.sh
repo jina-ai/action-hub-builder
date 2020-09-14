@@ -34,9 +34,11 @@ else
       cmd="jina hub build --pull --prune-images"
       if [[ "$IS_PUSH" == true ]]; then
         cmd="$cmd --push $TAR_PATH"
-        [ -z "$DOCKERHUB_USERNAME" ] && cmd="$cmd --username $DOCKERHUB_USERNAME"
-        [ -z "$DOCKERHUB_PASSWORD" ] && cmd="$cmd --password $DOCKERHUB_PASSWORD"
-        [ -z "$DOCKERHUB_REGISTRY" ] && cmd="$cmd --registry $DOCKERHUB_REGISTRY"
+
+        # only add args when not empty
+        [ ! -z "$DOCKERHUB_USERNAME" ] && cmd="$cmd --username $DOCKERHUB_USERNAME"
+        [ ! -z "$DOCKERHUB_PASSWORD" ] && cmd="$cmd --password $DOCKERHUB_PASSWORD"
+        [ ! -z "$DOCKERHUB_REGISTRY" ] && cmd="$cmd --registry $DOCKERHUB_REGISTRY"
       else
         cmd="$cmd --test-uses --raise-error --daemon $TAR_PATH"
       fi
