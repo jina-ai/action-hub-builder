@@ -30,6 +30,11 @@ jobs:
         continue-on-error: true
         with:
           push: true
+          mongodb_hostname: {{secrets.JINA_DB_HOSTNAME}}
+          mongodb_username: {{secrets.JINA_DB_USERNAME}}
+          mongodb_password: {{secrets.JINA_DB_PASSWORD}}
+          mongodb_database: {{secrets.JINA_DB_NAME}}
+          mongodb_collection: {{secrets.JINA_DB_COLLECTION}}
       - name: Get the output
         run: |
           rc=0
