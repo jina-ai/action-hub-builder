@@ -8,19 +8,20 @@ on:
   pull_request:
     branches: [ master ]
 
-# jobs:
-#   test_hubbuilder:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
-#       - name: Hub builder step
-#         id: hubbuild  # later we can refer to this step
-#         uses: ./ # Uses an action in the root directory
-#         continue-on-error: true
-#       - name: Get the output
-#         run: |
-#           rc=0
-#           [[ "${{ steps.hubbuild.outputs.success_targets }}" == ".github/workflows/tests/ImageReader/" ]] || rc=1
-#           [[ "${{ steps.hubbuild.outputs.failed_targets }}" == ".github/workflows/tests/EmptyExecutor/" ]] || rc=1
-#           exit $rc
+ jobs:
+   test_hubbuilder:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v2
+       - name: Hub builder step
+         id: hubbuild  # later we can refer to this step
+         uses: ./ # Uses an action in the root directory
+         continue-on-error: true
+         is_ci: true
+       - name: Get the output
+         run: |
+           rc=0
+           [[ "${{ steps.hubbuild.outputs.success_targets }}" == ".github/workflows/tests/ImageReader/" ]] || rc=1
+           [[ "${{ steps.hubbuild.outputs.failed_targets }}" == ".github/workflows/tests/EmptyExecutor/" ]] || rc=1
+           exit $rc

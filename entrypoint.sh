@@ -5,11 +5,11 @@ rc=0
 
 if [ "$#" -ne 9 ]; then
   echo "Expected 9 parameters. Got $#"
-  echo "./entrypoint.sh IS_CLI DOCKERHUB_USERNAME DOCKERHUB_PASSWORD DOCKERHUB_REGISTRY JINA_DB_HOSTNAME JINA_DB_USERNAME JINA_DB_PASSWORD JINA_DB_NAME JINA_DB_COLLECTION"
+  echo "./entrypoint.sh IS_CI DOCKERHUB_USERNAME DOCKERHUB_PASSWORD DOCKERHUB_REGISTRY JINA_DB_HOSTNAME JINA_DB_USERNAME JINA_DB_PASSWORD JINA_DB_NAME JINA_DB_COLLECTION"
   exit 1
 fi
 
-export IS_CLI=$1
+export IS_CI=$1
 export DOCKERHUB_USERNAME=$2
 export DOCKERHUB_PASSWORD=$3
 export DOCKERHUB_REGISTRY=$4
@@ -31,20 +31,17 @@ if [ -z "$FILES" ]; then
 else
     echo "targets to build: $FILES"
     for TAR_PATH in $FILES; do
-        if [[ "$IS_CLI" == "True" ]]; then
-            if jina hub build --pull --prune-images --test-uses --raise-error --daemon $TAR_PATH; then
-                SUCCESS_TARGETS+=("$TAR_PATH")
-            else
-                FAILED_TARGETS+=("$TAR_PATH")
-                rc=1
-            fi
+        if [[ "$IS_CI" == "True" ]]; then
+          cmd="jina hub build --pull --prune-images --test-uses --raise-error --daemon $TAR_PATH"
         else
-            if jina hub build --push --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD --registry $DOCKERHUB_REGISTRY --prune-images --raise-error --daemon $TAR_PATH; then
-                SUCCESS_TARGETS+=("$TAR_PATH")
-            else
-                FAILED_TARGETS+=("$TAR_PATH")
-                rc=1
-            fi
+          cmd="jina hub build --pulll --prune-images --push --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD --registry $DOCKERHUB_REGISTRY $TAR_PATH;"
+        fi
+
+        if ($cmd); then
+            SUCCESS_TARGETS+=("$TAR_PATH")
+        else
+            FAILED_TARGETS+=("$TAR_PATH")
+            rc=1
         fi
     done
 fi

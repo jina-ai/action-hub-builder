@@ -14,29 +14,29 @@ inputs:
     default: 'False'
   dockerhub_username:
     description: 'user name of the docker registry'
-    required: true
+    required: false
   dockerhub_password:
     description: 'the plaintext password of the docker hub'
-    required: true
+    required: false
   dockerhub_registry:
     description: 'the URL to the registry'
-    required: true
+    required: false
     default: 'https://index.docker.io/v1/'
   mondodb_hostname:
     description: 'hostname of mongodb atlas'
-    required: true
+    required: false
   mongodb_username:
     description: 'username of mongodb atlas'
-    required: true
+    required: false
   mongodb_password:
     description: 'password of mongodb atlas'
-    required: true
+    required: false
   mongodb_database:
     description: 'database in mongodb atlas'
-    required: true
+    required: false
   mongodb_collection:
     description: 'collection in mongodb atlas'
-    required: true
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
