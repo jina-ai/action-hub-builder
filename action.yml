@@ -8,7 +8,7 @@ outputs:
   failed_targets:
     description: Failed built targets with their paths
 inputs:
-  is_ci:
+  push:
     description: 'if add --push to jina hub build command'
     required: true
     default: 'False'
@@ -41,7 +41,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.is_ci }}
+    - ${{ inputs.push }}
     - ${{ inputs.dockerhub_username }}
     - ${{ inputs.dockerhub_password }}
     - ${{ inputs.dockerhub_registry }}
