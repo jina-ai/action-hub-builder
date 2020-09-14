@@ -36,6 +36,42 @@ jobs:
 
 On every new PR, the builder will find all modified `manifest.yml` recursively (deleting is excluded) and try to build an Hub image from it, one by one. That means, when you update an image, you *must* change `manifest.yml` to trigger the build, e.g. you can simply bump `version` field in `manifest.yml`.
 
+
+### Input Arguments of the Action
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `push` | if push to Docker Hub and MongoDB | False |
+| `dockerhub_username` | user name of the docker registry | |
+| `dockerhub_password` | the plaintext password of the docker hub| |
+| `dockerhub_registry` | the URL to the registry | `https://index.docker.io/v1/` |
+| `mongodb_hostname` | the host name of Mongodb Atlas | |
+| `mongodb_username` | the user name of Mongodb Atlas | |
+| `mongodb_password` | the plaintext password of Mongodb Atlas | |
+| `mongodb_database` | the database in Mongodb Atlas | |
+| `mongodb_collection` | the collection in Mongodb Atlas | |
+
+
+Example when using MongoDB Atlas for bookkeeping.
+
+```yaml
+name: Hub Builder
+
+on: [pull_request]
+
+jobs:
+  hub-builder:
+    runs-on: ubuntu-latest
+    steps:
+    with:
+      push: true
+      mongodb_hostname: ${{secrets.JINA_DB_HOSTNAME}}
+      mongodb_username: ${{secrets.JINA_DB_USERNAME}}
+      mongodb_password: ${{secrets.JINA_DB_PASSWORD}}
+      mongodb_database: ${{secrets.JINA_DB_NAME}}
+      mongodb_collection: ${{secrets.JINA_DB_COLLECTION}}
+```
+
 ### Output of the Action
 
 There are two outputs you can use in the post-action:
@@ -94,7 +130,17 @@ Simply open the `build-TIMESTAMP.json`, there you have a complete overview of th
 
 We welcome all kinds of contributions from the open-source community, individuals and partners. Without your active involvement, Jina won't be successful.
 
-Please first read [the contributing guidelines](https://github.com/jina-ai/jina/blob/master/CONTRIBUTING.md) before the submission. 
+Please first read [the contributing guidelines](https://github.com/jina-ai/jina/blob/master/CONTRIBUTING.md) before the submission.
+
+
+### Triggering CI of this Repo
+
+We have a simple test case to ensure the correctness of the PR to this action. As this action monitors the change of `manifest.yml`, to trigger the action, you have to modify `manifest.yml`, e.g. by bumping the version number.
+
+- [`manifest.yml` that expects to fail in CI](.github/workflows/tests/EmptyExecutor/manifest.yml)
+- [`manifest.yml` that expects to success in CI](.github/workflows/tests/ImageReader/manifest.yml)
+
+Commit the changes above along with your PR, it will trigger the CI. If both expectations are met, then your PR is good to go.
 
 ## License
 

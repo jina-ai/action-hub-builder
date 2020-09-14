@@ -14,13 +14,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Hub builder step
-        id: hubbuild  # later we can refer to this step
+      - name: Hub builder step (no push)
+        id: hubbuild1  # later we can refer to this step
         uses: ./ # Uses an action in the root directory
         continue-on-error: true
       - name: Get the output
         run: |
           rc=0
-          [[ "${{ steps.hubbuild.outputs.success_targets }}" == ".github/workflows/tests/ImageReader/" ]] || rc=1
-          [[ "${{ steps.hubbuild.outputs.failed_targets }}" == ".github/workflows/tests/EmptyExecutor/" ]] || rc=1
+          [[ "${{ steps.hubbuild1.outputs.success_targets }}" == ".github/workflows/tests/ImageReader/" ]] || rc=1
+          [[ "${{ steps.hubbuild1.outputs.failed_targets }}" == ".github/workflows/tests/EmptyExecutor/" ]] || rc=1
+          exit $rc
+      - name: Hub builder step (with push)
+        id: hubbuild2  # later we can refer to this step
+        uses: ./ # Uses an action in the root directory
+        continue-on-error: true
+        with:
+          push: true
+          mongodb_hostname: ${{secrets.JINA_DB_HOSTNAME}}
+          mongodb_username: ${{secrets.JINA_DB_USERNAME}}
+          mongodb_password: ${{secrets.JINA_DB_PASSWORD}}
+          mongodb_database: ${{secrets.JINA_DB_NAME}}
+          mongodb_collection: ${{secrets.JINA_DB_COLLECTION}}
+      - name: Get the output
+        run: |
+          rc=0
+          [[ "${{ steps.hubbuild2.outputs.success_targets }}" == ".github/workflows/tests/ImageReader/" ]] || rc=1
+          [[ "${{ steps.hubbuild2.outputs.failed_targets }}" == ".github/workflows/tests/EmptyExecutor/" ]] || rc=1
           exit $rc
