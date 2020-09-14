@@ -10,7 +10,7 @@ outputs:
 inputs:
   push:
     description: 'if add --push to jina hub build command'
-    required: true
+    required: false
     default: 'False'
   dockerhub_username:
     description: 'user name of the docker registry'
@@ -22,7 +22,7 @@ inputs:
     description: 'the URL to the registry'
     required: false
     default: 'https://index.docker.io/v1/'
-  mondodb_hostname:
+  mongodb_hostname:
     description: 'hostname of mongodb atlas'
     required: false
   mongodb_username:
@@ -45,7 +45,7 @@ runs:
     - ${{ inputs.dockerhub_username }}
     - ${{ inputs.dockerhub_password }}
     - ${{ inputs.dockerhub_registry }}
-    - ${{ inputs.mondodb_hostname }}
+    - ${{ inputs.mongodb_hostname }}
     - ${{ inputs.mongodb_username }}
     - ${{ inputs.mongodb_password }}
     - ${{ inputs.mongodb_database }}
