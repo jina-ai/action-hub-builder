@@ -94,7 +94,17 @@ Simply open the `build-TIMESTAMP.json`, there you have a complete overview of th
 
 We welcome all kinds of contributions from the open-source community, individuals and partners. Without your active involvement, Jina won't be successful.
 
-Please first read [the contributing guidelines](https://github.com/jina-ai/jina/blob/master/CONTRIBUTING.md) before the submission. 
+Please first read [the contributing guidelines](https://github.com/jina-ai/jina/blob/master/CONTRIBUTING.md) before the submission.
+
+
+### Triggering CI of this Repo
+
+We add a simple test case to ensure the correctness of the PR to this action. As this action monitors the change of `manifest.yml`, to trigger the action, you have to modify `manifest.yml`, e.g. by bumping the version number.
+
+- [`manifest.yml` that guarantees to fail](.github/workflows/tests/EmptyExecutor/manifest.yml)
+- [`manifest.yml` that guarantees to success](.github/workflows/tests/ImageReader/manifest.yml)
+
+Commit the changes above along with your PR, it will trigger the CI.
 
 ## License
 
