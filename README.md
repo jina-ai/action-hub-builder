@@ -36,6 +36,21 @@ jobs:
 
 On every new PR, the builder will find all modified `manifest.yml` recursively (deleting is excluded) and try to build an Hub image from it, one by one. That means, when you update an image, you *must* change `manifest.yml` to trigger the build, e.g. you can simply bump `version` field in `manifest.yml`.
 
+
+### Input Arguments of the Action
+
+| Name | Description | Default |
+| --- | --- | --- |
+| `push` | if push to Docker Hub and MongoDB | False |
+| `dockerhub_username` | user name of the docker registry | |
+| `dockerhub_password` | the plaintext password of the docker hub| |
+| `dockerhub_registry` | the URL to the registry | `https://index.docker.io/v1/` |
+| `mongodb_hostname` | the host name of Mongodb Atlas | |
+| `mongodb_username` | the user name of Mongodb Atlas | |
+| `mongodb_password` | the plaintext password of Mongodb Atlas | |
+| `mongodb_database` | the database in Mongodb Atlas | |
+| `mongodb_collection` | the collection in Mongodb Atlas | |
+
 ### Output of the Action
 
 There are two outputs you can use in the post-action:
