@@ -51,6 +51,27 @@ On every new PR, the builder will find all modified `manifest.yml` recursively (
 | `mongodb_database` | the database in Mongodb Atlas | |
 | `mongodb_collection` | the collection in Mongodb Atlas | |
 
+
+Example when using MongoDB Atlas for bookkeeping.
+
+```yaml
+name: Hub Builder
+
+on: [pull_request]
+
+jobs:
+  hub-builder:
+    runs-on: ubuntu-latest
+    steps:
+    with:
+      push: true
+      mongodb_hostname: ${{secrets.JINA_DB_HOSTNAME}}
+      mongodb_username: ${{secrets.JINA_DB_USERNAME}}
+      mongodb_password: ${{secrets.JINA_DB_PASSWORD}}
+      mongodb_database: ${{secrets.JINA_DB_NAME}}
+      mongodb_collection: ${{secrets.JINA_DB_COLLECTION}}
+```
+
 ### Output of the Action
 
 There are two outputs you can use in the post-action:
