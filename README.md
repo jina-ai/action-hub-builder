@@ -99,12 +99,12 @@ Please first read [the contributing guidelines](https://github.com/jina-ai/jina/
 
 ### Triggering CI of this Repo
 
-We add a simple test case to ensure the correctness of the PR to this action. As this action monitors the change of `manifest.yml`, to trigger the action, you have to modify `manifest.yml`, e.g. by bumping the version number.
+We have a simple test case to ensure the correctness of the PR to this action. As this action monitors the change of `manifest.yml`, to trigger the action, you have to modify `manifest.yml`, e.g. by bumping the version number.
 
-- [`manifest.yml` that guarantees to fail](.github/workflows/tests/EmptyExecutor/manifest.yml)
-- [`manifest.yml` that guarantees to success](.github/workflows/tests/ImageReader/manifest.yml)
+- [`manifest.yml` that expects to fail in CI](.github/workflows/tests/EmptyExecutor/manifest.yml)
+- [`manifest.yml` that expects to success in CI](.github/workflows/tests/ImageReader/manifest.yml)
 
-Commit the changes above along with your PR, it will trigger the CI.
+Commit the changes above along with your PR, it will trigger the CI. If both expectations are met, then your PR is good to go.
 
 ## License
 
