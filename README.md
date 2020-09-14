@@ -63,13 +63,17 @@ jobs:
   hub-builder:
     runs-on: ubuntu-latest
     steps:
-    with:
-      push: true
-      mongodb_hostname: ${{secrets.JINA_DB_HOSTNAME}}
-      mongodb_username: ${{secrets.JINA_DB_USERNAME}}
-      mongodb_password: ${{secrets.JINA_DB_PASSWORD}}
-      mongodb_database: ${{secrets.JINA_DB_NAME}}
-      mongodb_collection: ${{secrets.JINA_DB_COLLECTION}}
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Jina Hub Image Builder
+        uses: jina-ai/hub-builder@v0.2
+        with:
+          push: true
+          mongodb_hostname: ${{secrets.JINA_DB_HOSTNAME}}
+          mongodb_username: ${{secrets.JINA_DB_USERNAME}}
+          mongodb_password: ${{secrets.JINA_DB_PASSWORD}}
+          mongodb_database: ${{secrets.JINA_DB_NAME}}
+          mongodb_collection: ${{secrets.JINA_DB_COLLECTION}}
 ```
 
 ### Output of the Action
