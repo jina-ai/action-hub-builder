@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Jina Hub Image Builder
-        uses: jina-ai/hub-builder@v0.2
+        uses: jina-ai/hub-builder@master
 ```
 
 On every new PR, the builder will find all modified `manifest.yml` recursively (deleting is excluded) and try to build an Hub image from it, one by one. That means, when you update an image, you *must* change `manifest.yml` to trigger the build, e.g. you can simply bump `version` field in `manifest.yml`.
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Jina Hub Image Builder
-        uses: jina-ai/hub-builder@v0.2
+        uses: jina-ai/hub-builder@master
         with:
           push: true
           mongodb_hostname: ${{secrets.JINA_DB_HOSTNAME}}
