@@ -31,7 +31,7 @@ if [ -z "$FILES" ]; then
 else
     echo "targets to build: $FILES"
     for TAR_PATH in $FILES; do
-      cmd="jina hub build --pull --prune-images --raise-error"
+      cmd="jina hub build --pull --prune-images --raise-error --host-info"
       if [[ "$IS_PUSH" == true ]]; then
         cmd="$cmd --push $TAR_PATH"
 
