@@ -3,12 +3,6 @@
 set -ex
 rc=0
 
-if [ "$#" -ne 9 ]; then
-  echo "Expected 9 parameters. Got $#"
-  echo "./entrypoint.sh IS_PUSH DOCKERHUB_USERNAME DOCKERHUB_PASSWORD DOCKERHUB_REGISTRY JINA_DB_HOSTNAME JINA_DB_USERNAME JINA_DB_PASSWORD JINA_DB_NAME JINA_DB_COLLECTION"
-  exit 1
-fi
-
 export IS_PUSH=$1
 export DOCKERHUB_USERNAME=$2
 export DOCKERHUB_PASSWORD=$3
