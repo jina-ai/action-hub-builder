@@ -18,6 +18,7 @@ export JINA_DB_USERNAME=$6
 export JINA_DB_PASSWORD=$7
 export JINA_DB_NAME=$8
 export JINA_DB_COLLECTION=$9
+export JINA_SLACK_WEBHOOK=$10
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/files"

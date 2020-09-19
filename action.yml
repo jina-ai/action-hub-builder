@@ -37,6 +37,9 @@ inputs:
   mongodb_collection:
     description: 'collection in Mongodb Atlas'
     required: false
+  slack_webhook:
+    description: 'webhook for Slack notification'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -50,6 +53,7 @@ runs:
     - ${{ inputs.mongodb_password }}
     - ${{ inputs.mongodb_database }}
     - ${{ inputs.mongodb_collection }}
+    - ${{ inputs.slack_webhook }}
 branding:
   icon: 'package'
   color: 'green'
