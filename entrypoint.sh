@@ -7,12 +7,7 @@ export IS_PUSH=$1
 export DOCKERHUB_USERNAME=$2
 export DOCKERHUB_PASSWORD=$3
 export DOCKERHUB_REGISTRY=$4
-export JINA_DB_HOSTNAME=$5
-export JINA_DB_USERNAME=$6
-export JINA_DB_PASSWORD=$7
-export JINA_DB_NAME=$8
-export JINA_DB_COLLECTION=$9
-export JINAHUB_SLACK_WEBHOOK=${10}
+export JINAHUB_SLACK_WEBHOOK=$5
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/files"
