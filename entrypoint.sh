@@ -4,11 +4,12 @@ set -ex
 rc=0
 
 export IS_PUSH=$1
-export DOCKERHUB_USERNAME=$2
-export DOCKERHUB_PASSWORD=$3
-export DOCKERHUB_REGISTRY=$4
-export JINAHUB_SLACK_WEBHOOK=$5
-export GITHUB_TOKEN=$6
+export GITHUB_TOKEN=$2
+export DOCKERHUB_USERNAME=$3
+export DOCKERHUB_PASSWORD=$4
+export DOCKERHUB_REGISTRY=$5
+export JINAHUB_SLACK_WEBHOOK=$6
+
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/files"
@@ -18,8 +19,8 @@ rc=0
 SUCCESS_TARGETS=()
 FAILED_TARGETS=()
 
-ACCESS_DIRECTORY: ~/.jina
-ACCESS_FILE: ~/.jina/access.yml
+ACCESS_DIRECTORY=~/.jina
+ACCESS_FILE=~/.jina/access.yml
 
 if [ -z "$FILES" ]; then
     echo "nothing to build"
