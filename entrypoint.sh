@@ -19,8 +19,8 @@ rc=0
 SUCCESS_TARGETS=()
 FAILED_TARGETS=()
 
-ACCESS_DIRECTORY: ~/.jina
-ACCESS_FILE: ~/.jina/access.yml
+ACCESS_DIRECTORY=~/.jina
+ACCESS_FILE=~/.jina/access.yml
 
 if [ -z "$FILES" ]; then
     echo "nothing to build"
