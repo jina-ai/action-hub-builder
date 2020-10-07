@@ -34,6 +34,7 @@ runs:
     - ${{ inputs.dockerhub_password }}
     - ${{ inputs.dockerhub_registry }}
     - ${{ inputs.slack_webhook }}
+    - ${{ secrets.GITHUB_TOKEN }}
 branding:
   icon: 'package'
   color: 'green'
