@@ -12,6 +12,10 @@ inputs:
     description: 'if add --push to jina hub build command'
     required: false
     default: 'False'
+  jina_hub_token:
+    description: 'access token for jina hub login'
+    required: false
+    default: ${{ github.token }}
   dockerhub_username:
     description: 'user name of the Docker registry'
     required: false
@@ -30,11 +34,11 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.push }}
+    - ${{ inputs.jina_hub_token }}
     - ${{ inputs.dockerhub_username }}
     - ${{ inputs.dockerhub_password }}
     - ${{ inputs.dockerhub_registry }}
     - ${{ inputs.slack_webhook }}
-    - ${{ github.token }}
 branding:
   icon: 'package'
   color: 'green'
