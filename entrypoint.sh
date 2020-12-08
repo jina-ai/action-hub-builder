@@ -13,7 +13,13 @@ export JINAHUB_SLACK_WEBHOOK=$6
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/files"
-FILES=$(curl -s -X GET -G -H "Authorization: token $GITHUB_TOKEN" $URL | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
+# if we don't have the token
+if [ -z "$GITHUB_TOKEN"]
+then
+  FILES=$(curl -s -X GET -G $URL | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
+else
+  FILES=$(curl -s -X GET -G -H "Authorization: token $GITHUB_TOKEN" $URL | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
+fi
 
 rc=0
 SUCCESS_TARGETS=()
