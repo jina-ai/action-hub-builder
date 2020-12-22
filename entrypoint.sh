@@ -30,6 +30,7 @@ ACCESS_FILE=~/.jina/access.yml
 
 if [ -z "$FILES" ]; then
     echo "nothing to build"
+    rc=1
 else
     echo "targets to build: $FILES"
     for TAR_PATH in $FILES; do
