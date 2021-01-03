@@ -35,7 +35,7 @@ inputs:
     required: false
 runs:
   using: 'docker'
-  image:  'Dockerfiles/'${{ inputs.jina_version }}'.Dockerfile'
+  image:  'Dockerfile'
   args:
     - ${{ inputs.push }}
     - ${{ inputs.jina_hub_token }}
