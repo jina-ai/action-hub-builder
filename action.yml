@@ -36,8 +36,6 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    JINA_VERSION: ${{ inputs.jina_version }}
   args:
     - ${{ inputs.push }}
     - ${{ inputs.jina_hub_token }}
@@ -45,6 +43,7 @@ runs:
     - ${{ inputs.dockerhub_password }}
     - ${{ inputs.dockerhub_registry }}
     - ${{ inputs.slack_webhook }}
+    - ${{ inputs.jina_version }}
 branding:
   icon: 'package'
   color: 'green'

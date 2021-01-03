@@ -1,4 +1,6 @@
-FROM jinaai/jina:$JINA_VERSION
+ARG JINA_VERSION
+
+FROM jinaai/jina:${JINA_VERSION}
 
 RUN apt-get update && apt-get install -y jq curl
 
