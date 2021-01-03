@@ -12,6 +12,10 @@ inputs:
     description: 'if add --push to jina hub build command'
     required: false
     default: 'False'
+  jina_version:
+    description: 'the version of jina base docker image, default: latest'
+    required: false
+    default: 'latest'
   jina_hub_token:
     description: 'access token for jina hub login'
     required: false
@@ -32,6 +36,8 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  env:
+    JINA_VERSION: ${{ inputs.jina_version }}
   args:
     - ${{ inputs.push }}
     - ${{ inputs.jina_hub_token }}
