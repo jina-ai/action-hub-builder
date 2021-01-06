@@ -29,6 +29,10 @@ inputs:
   slack_webhook:
     description: 'webhook for Slack notification'
     required: false
+  jina_version:
+    description: 'the jina version for building the hub image, check out all the available version at https://pypi.org/project/jina, by default the latest version is used.'
+    required: false
+    default: 'latest'
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -39,6 +43,7 @@ runs:
     - ${{ inputs.dockerhub_password }}
     - ${{ inputs.dockerhub_registry }}
     - ${{ inputs.slack_webhook }}
+    - ${{ inputs.jina_version }}
 branding:
   icon: 'package'
   color: 'green'
