@@ -9,12 +9,17 @@ export DOCKERHUB_USERNAME=$3
 export DOCKERHUB_PASSWORD=$4
 export DOCKERHUB_REGISTRY=$5
 export JINAHUB_SLACK_WEBHOOK=$6
+export JINA_VERSION=$7
 
+if [ "$JINA_VERSION" != "latest" ]
+then
+  pip install 'jina==${JINA_VERSION}'
+fi
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/files"
 # if we don't have the token
-if [ -z "$GITHUB_TOKEN"]
+if [ -z "$GITHUB_TOKEN" ]
 then
   FILES=$(curl -s -X GET -G $URL | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
 else

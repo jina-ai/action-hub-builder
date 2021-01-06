@@ -5,7 +5,7 @@ import pathlib
 from jina.docker.hubio import HubIO
 from jina.helper import get_now_timestamp, get_full_version
 from jina.logging import default_logger
-from jina.main.parser import set_hub_build_parser
+from jina.parsers.hub import set_hub_build_parser
 
 
 def get_parser():
