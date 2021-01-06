@@ -45,36 +45,11 @@ On every new PR, the builder will find all modified `manifest.yml` recursively (
 | `dockerhub_username` | user name of the docker registry | |
 | `dockerhub_password` | the plaintext password of the docker hub| |
 | `dockerhub_registry` | the URL to the registry | `https://index.docker.io/v1/` |
-| `mongodb_hostname` | the host name of Mongodb Atlas | |
-| `mongodb_username` | the user name of Mongodb Atlas | |
-| `mongodb_password` | the plaintext password of Mongodb Atlas | |
-| `mongodb_database` | the database in Mongodb Atlas | |
-| `mongodb_collection` | the collection in Mongodb Atlas | |
+| `slack_webhook` | the webhook for Slack notification | |
+| `jina_version` | the version of Jina for building hub image | latest |
 
-
-Example when using MongoDB Atlas for bookkeeping.
-
-```yaml
-name: Hub Builder
-
-on: [pull_request]
-
-jobs:
-  hub-builder:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Jina Hub Image Builder
-        uses: jina-ai/hub-builder@master
-        with:
-          push: true
-          mongodb_hostname: ${{secrets.JINA_DB_HOSTNAME}}
-          mongodb_username: ${{secrets.JINA_DB_USERNAME}}
-          mongodb_password: ${{secrets.JINA_DB_PASSWORD}}
-          mongodb_database: ${{secrets.JINA_DB_NAME}}
-          mongodb_collection: ${{secrets.JINA_DB_COLLECTION}}
-```
+**Notes:** the input argument `jina_version` is different from the version of jina for running the pod in the container. 
+The later should be set in `your_jina_pod/requirements.txt`. The `jina_version` is the version of jina when building the pod image.
 
 ### Output of the Action
 
