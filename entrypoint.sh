@@ -14,6 +14,8 @@ export JINA_VERSION=$7
 if [ "$JINA_VERSION" != "latest" ]
 then
   pip install 'jina==${JINA_VERSION}'
+else
+  pip install jina
 fi
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
