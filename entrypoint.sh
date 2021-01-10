@@ -45,7 +45,7 @@ else
       mkdir -p ${ACCESS_DIRECTORY}
       if [ ! -f ${ACCESS_FILE} ]; then touch ${ACCESS_FILE}; echo "access_token: ${GITHUB_TOKEN}" >> ${ACCESS_FILE}; fi
 
-      cmd="jina hub build --pull --prune-images --raise-error --host-info"
+      cmd="jina hub build --pull --prune-images --raise-error --host-info --test-uses"
       if [[ "$IS_PUSH" == true ]]; then
         cmd="$cmd --push $TAR_PATH"
 
@@ -54,7 +54,7 @@ else
         [ ! -z "$DOCKERHUB_PASSWORD" ] && cmd="$cmd --password $DOCKERHUB_PASSWORD"
         [ ! -z "$DOCKERHUB_REGISTRY" ] && cmd="$cmd --registry $DOCKERHUB_REGISTRY"
       else
-        cmd="$cmd --test-uses --daemon $TAR_PATH"
+        cmd="$cmd --daemon $TAR_PATH"
       fi
 
       if ($cmd); then
