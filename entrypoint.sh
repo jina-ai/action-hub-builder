@@ -45,7 +45,7 @@ else
       mkdir -p ${ACCESS_DIRECTORY}
       if [ ! -f ${ACCESS_FILE} ]; then touch ${ACCESS_FILE}; echo "access_token: ${GITHUB_TOKEN}" >> ${ACCESS_FILE}; fi
 
-      cmd="jina hub build --pull --prune-images --raise-error --host-info --test-uses"
+      cmd="jina hub build --pull --prune-images --raise-error --host-info --test-uses --timeout-ready 30000"
       if [[ "$IS_PUSH" == true ]]; then
         cmd="$cmd --push $TAR_PATH"
 
