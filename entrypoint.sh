@@ -15,7 +15,7 @@ if [ "$JINA_VERSION" != "latest" ]
 then
   pip install 'jina==${JINA_VERSION}'
 else
-  pip install jina
+  pip install jina --no-cache-dir
 fi
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
