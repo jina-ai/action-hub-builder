@@ -11,21 +11,36 @@ export DOCKERHUB_REGISTRY=$5
 export JINAHUB_SLACK_WEBHOOK=$6
 export JINA_VERSION=$7
 
-if [ "$JINA_VERSION" != "latest" ]
-then
+if [ "$JINA_VERSION" != "latest" ]; then
   pip install 'jina==${JINA_VERSION}'
 else
   pip install jina --no-cache-dir
 fi
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}/files"
+
+PR_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${pull_number}"
+FILES_URL=${PR_URL}/files
+AUTHOR=$(curl -s -X GET $PR_URL | jq -r '.user.login')
+FILENAME=files_in_pr.json
+
 # if we don't have the token
-if [ -z "$GITHUB_TOKEN" ]
-then
-  FILES=$(curl -s -X GET -G $URL | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
+if [ -z "$GITHUB_TOKEN" ]; then
+  curl -s -X GET -G $FILES_URL > $FILENAME
 else
-  FILES=$(curl -s -X GET -G -H "Authorization: token $GITHUB_TOKEN" $URL | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
+  curl -s -X GET -G -H "Authorization: token $GITHUB_TOKEN" $FILES_URL > $FILENAME
+fi
+
+if [[ "$AUTHOR" == "dependabot[bot]" ]]; then
+  # If author is dependabot, we want to push files to hub, even if the modified files are dockerfile / requirement.txt
+  manifest_files=$(cat $FILENAME | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
+  docker_files=$(cat $FILENAME | jq -r '.[] | select( (.filename | endswith("Dockerfile")) and (.status != "removed")) | .filename | rtrimstr("Dockerfile")')
+  requirements_files=$(cat $FILENAME | jq -r '.[] | select( (.filename | endswith("requirements.txt")) and (.status != "removed")) | .filename | rtrimstr("requirements.txt")')
+  all_files=("${manifest_files[@]}" "${docker_files[@]}" "${requirements_files[@]}")
+  # get unique entries in all_files
+  FILES=$(echo "${all_files[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+else
+  FILES=$(cat $FILENAME | jq -r '.[] | select( (.filename | endswith("manifest.yml")) and (.status != "removed")) | .filename | rtrimstr("manifest.yml")')
 fi
 
 rc=0
@@ -41,7 +56,7 @@ if [ -z "$FILES" ]; then
 else
     echo "targets to build: $FILES"
     for TAR_PATH in $FILES; do
-    
+
       mkdir -p ${ACCESS_DIRECTORY}
       if [ ! -f ${ACCESS_FILE} ]; then touch ${ACCESS_FILE}; echo "access_token: ${GITHUB_TOKEN}" >> ${ACCESS_FILE}; fi
 
