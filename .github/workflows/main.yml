@@ -30,6 +30,7 @@ jobs:
         continue-on-error: true
         with:
           push: true
+          jina_hub_token: ${{ secrets.JINA_DEV_BOT }}
           dockerhub_username: ${{secrets.JINAHUB_DOCKER_USER}}
           dockerhub_password: ${{secrets.JINAHUB_DOCKER_PWD}}
       - name: Get the output

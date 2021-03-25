@@ -15,7 +15,6 @@ inputs:
   jina_hub_token:
     description: 'access token for jina hub login'
     required: true
-    default: ${{ secrets.JINA_DEV_BOT }}
   dockerhub_username:
     description: 'user name of the Docker registry'
     required: false
