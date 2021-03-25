@@ -14,7 +14,8 @@ inputs:
     default: 'False'
   jina_hub_token:
     description: 'access token for jina hub login'
-    required: true
+    required: false
+    default: ${{ github.token }}
   dockerhub_username:
     description: 'user name of the Docker registry'
     required: false
