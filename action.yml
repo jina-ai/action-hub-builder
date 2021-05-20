@@ -32,7 +32,7 @@ inputs:
   jina_version:
     description: 'the jina version for building the hub image, check out all the available version at https://pypi.org/project/jina, by default the latest version is used.'
     required: false
-    default: 'latest'
+    default: '1.2.3'
 runs:
   using: 'docker'
   image: 'Dockerfile'
