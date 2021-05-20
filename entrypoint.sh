@@ -11,10 +11,12 @@ export DOCKERHUB_REGISTRY=$5
 export JINAHUB_SLACK_WEBHOOK=$6
 export JINA_VERSION=$7
 
-if [ "$JINA_VERSION" != "latest" ]; then
-  pip install "jina==${JINA_VERSION}"
-else
+if [ "$JINA_VERSION" == "latest" ]; then
   pip install jina --no-cache-dir
+elif [[ "$JINA_VERSION" =~ ^git.* ]]; then
+  pip install "${JINA_VERSION}"
+else
+  pip install "jina==${JINA_VERSION}"
 fi
 
 pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
