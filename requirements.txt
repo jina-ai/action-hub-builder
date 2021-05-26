@@ -1,1 +1,1 @@
-jina[docker]
+git+https://github.com/jina-ai/jina.git#egg=jina[docker]

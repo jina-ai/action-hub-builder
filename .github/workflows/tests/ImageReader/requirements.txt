@@ -1,2 +1,2 @@
-jina
+git+https://github.com/jina-ai/jina.git
 Pillow
